@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Forensics | Image Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav class="navbar">
+        <div class="logo">STELLAR FORENSICS</div>
+        <div class="clock-container">
+            <div id="clock">00:00:00</div>
+            <div id="date">Wednesday, 24 December 2025</div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="hero">
+            <div id="trueFocus" class="true-focus-container"></div>
+            <p>Uncover hidden metadata, detect steganography, and verify image integrity with professional-grade
+                analysis tools.</p>
+        </div>
+
+        <div class="card">
+            <!-- Error Message Display -->
+            {% if error %}
+            <div class="error-banner" id="errorBanner">
+                <span class="error-icon">⚠️</span>
+                <span class="error-text">{{ error }}</span>
+                <button class="error-close" onclick="closeError()">✕</button>
+            </div>
+            {% endif %}
+
+            <form action="/gui/analyze" method="POST" enctype="multipart/form-data" id="analyzeForm"
+                onsubmit="showLoading()">
+                <label for="imageInput" class="upload-section" id="dropZone">
+                    <div class="upload-icon">📁</div>
+                    <h3>Choose an image or drag & drop</h3>
+                    <p>Supported: JPG, PNG, WEBP, TIFF, BMP, GIF</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Maximum file size: <strong style="color: var(--primary);">50 MB</strong>
+                    </p>
+                    <div class="file-name" id="fileName">No file chosen</div>
+                    <input type="file" name="image" id="imageInput" accept="image/*" required>
+                </label>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                        Analyze Full Image
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Stellar Forensics Engine. Precision analysis for the digital age.
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Analyzing Image</h2>
+            <p id="loadingStatus">Initializing Secure Environment...</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
