@@ -151,6 +151,6 @@ def bit_plane_noise(image_path: str) -> float:
         v_diff = np.abs(lsb_plane[:-1, :] - lsb_plane[1:, :])
         
         noise_density = (np.sum(h_diff) + np.sum(v_diff)) / (lsb_plane.size * 2)
-        return float(noise_density)
+        return float(min(noise_density, 1.0))
     except:
         return 0.0

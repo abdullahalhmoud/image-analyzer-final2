@@ -47,7 +47,7 @@ class StegoNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.hp = HighPassLayer()
-        base_model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.IMAGENET1K_V1)
+        base_model = models.efficientnet_b4(weights=models.EfficientNet_B4_Weights.IMAGENET1K_V1)
         
         # We only need the architecture to load weights
         base_model.classifier[1] = nn.Linear(base_model.classifier[1].in_features, 1)
@@ -89,7 +89,7 @@ class StegoDetector:
         
         # Transform (Must match training)
         self.transform = transforms.Compose([
-            transforms.Resize((192, 192)),
+            transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=[0.485, 0.456, 0.406],
@@ -328,9 +328,9 @@ class StegoDetector:
                     'srm': srm_score,
                     'chroma': chroma_score,
                     'lum': lum_consistency,
-                    'chi': chi_prob,
-                    'entropy': min(entropy, 1.0),
-                    'noise': min(noise_val * 2, 1.0)
+                    'chi': min(chi_prob * 0.4, 1.0),
+                    'entropy': max(0.0, (min(entropy, 1.0) - 0.92) / 0.08),
+                    'noise': min(noise_val * 0.3, 1.0)
                 }
             else:
                 # Without ML model, redistribute voting power
@@ -339,9 +339,9 @@ class StegoDetector:
                     'srm': srm_score,
                     'chroma': chroma_score,
                     'lum': lum_consistency,
-                    'chi': chi_prob,
-                    'entropy': min(entropy, 1.0),
-                    'noise': min(noise_val * 2, 1.0)
+                    'chi': min(chi_prob * 0.4, 1.0),
+                    'entropy': max(0.0, (min(entropy, 1.0) - 0.92) / 0.08),
+                    'noise': min(noise_val * 0.3, 1.0)
                 }
             
             # Call ensemble voting system
@@ -362,8 +362,8 @@ class StegoDetector:
             
             # 4. Final Verdict Logic
             # Adaptive thresholds based on complexity
-            stego_threshold = 0.65 + (complexity_score * 0.1) 
-            suspicious_threshold = 0.48 + (complexity_score * 0.10)  # Raised base from 0.40 to 0.48
+            stego_threshold = 0.82
+            suspicious_threshold = 0.68  # Raised base from 0.40 to 0.48
 
             if combined_score >= stego_threshold:
                 verdict = "Likely Stego"
@@ -379,7 +379,7 @@ class StegoDetector:
                 is_manipulated = False
                 
             # Escalation Rule: High confidence SRM + Chroma override
-            if verdict != "Likely Stego" and (srm_score > 0.85 and chroma_score > 0.8):
+            if verdict != "Likely Stego" and (srm_score > 0.95 and chroma_score > 0.95 and chi_prob > 0.8):
                 verdict = "Likely Stego"
                 verdict_en = "Likely Stego"
                 is_manipulated = True
