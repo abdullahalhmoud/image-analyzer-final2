@@ -1,78 +1,237 @@
-# 🕵️‍♀️ Stellar Forensics Engine - AI Digital Forensics Tool
+# 🕵️‍♀️ Stellar Forensics Engine - Advanced AI Digital Forensics Platform
 
-> **A Next-Generation Digital Forensics & Steganography Analysis Platform**
-> *Powered by Artificial Intelligence & Advanced Image Processing*
+### A Next-Generation AI-Powered Digital Forensics, Steganography Detection, Hidden Payload Extraction, and AI-Generated Image Verification System
 
-## 🌟 Overview
-**Stellar Forensics** is a powerful, web-based tool designed to analyze digital images for signs of tampering, manipulation, and hidden data. Built with a modern, sci-fi inspired interface, it combines traditional forensic techniques (ELA, EXIF) with state-of-the-art AI detection to provide comprehensive forensic reports.
+---
 
-## ✨ Key Features
+# 🌟 Overview
 
-### 🔍 Deep Analysis
-- **Error Level Analysis (ELA)**: Detects compression artifacts to identify manipulated areas.
-- **AI-Powered Detection**: Uses a trained `EfficientNet-B0` model to classify images as "Real" or "AI-Generated/Forged".
-- **Metadata Extraction**: Pulls EXIF data, including Camera Make/Model, Datestamps, and GPS Coordinates.
-- **Steganography Checks**: Scans for hidden data embedded within image files.
+Stellar Forensics Engine is a professional-grade digital forensic analysis platform engineered for:
 
-### 🎨 Modern Experience
-- **Stunning UI**: Dark-mode, glassmorphism design with responsive animations.
-- **Drag & Drop**: Seamless file upload experience.
-- **Instant Reporting**: Generates dynamic HTML & PDF reports.
-- **Cross-Platform**: Runs on Windows, macOS, and Linux (Auto-launches in Firefox/Default Browser).
+- Hidden payload extraction
+- Steganography detection
+- AI-generated image verification
+- Metadata integrity validation
+- C2PA synthetic media verification
+- Error Level Analysis (ELA)
+- OCR-based embedded text analysis
+- Traditional forensic extraction
+- Manual forensic scoring
+- Security-grade reporting
 
-## 🚀 How to Run
+---
 
-### Prerequisites
-- Python 3.8+
-- Firefox (Recommended for best experience)
+# 🔬 Core Capabilities
 
-### Installation
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-repo/stellar-forensics.git
-   cd stellar-forensics
-   ```
+## Traditional Forensics Engine
+- Steghide payload extraction
+- StegSleuth heuristic detection
+- Manual forensic scoring
+- Hidden stream detection
+- OCR artifact extraction
+- EXIF metadata analysis
+- Embedded file recovery
+- Suspicious binary stream analysis
 
-2. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-   *(Note: Ensure `torch` and `torchvision` are compatible with your system)*
+---
 
-3. **External Tools (Optional for full power):**
-   - Install `steghide` and `binwalk` for advanced hidden data extraction.
+## 🤖 AI Forensics Engine
+- AI-generated image classifier
+- Synthetic media detection
+- GAN detection
+- Human vs AI classification
+- Model confidence scoring
+- Fully separated AI authenticity verdict
+- Does NOT alter hidden payload verdict
 
-### Usage
-Run the application with a single command:
+---
+
+## 📷 Metadata Intelligence Engine
+- Camera Make / Model
+- GPS coordinates
+- File creation timestamps
+- Software generation history
+- C2PA provenance verification
+- OpenAI / GPT image generation traces
+- Synthetic media source indicators
+- JUMD source verification
+
+---
+
+## 🧪 Image Tampering Detection
+- Error Level Analysis (ELA)
+- Compression artifact analysis
+- Image manipulation heatmaps
+- Structural anomaly identification
+
+---
+
+# 🛡️ Final Decision Categories
+
+- CRITICAL / HIDDEN PAYLOAD CONFIRMED
+- SUSPICIOUS / STEGHIDE PAYLOAD DETECTED
+- SUSPICIOUS / STEGSLEUTH FLAG ONLY
+- SUSPICIOUS / MANUAL FORENSIC INDICATORS
+- LOW RISK / WEAK WARNING
+- ANALYSIS COMPLETE / CLEAN
+
+---
+
+# 🎨 User Experience Features
+
+- Modern glassmorphism forensic dashboard
+- Responsive web UI
+- Dynamic HTML reports
+- PDF forensic reports
+- JSON forensic exports
+- Hidden payload download support
+- Extracted file recovery
+- AI visual authenticity section
+- EXIF deep analysis dashboard
+- Clean verdict separation
+
+---
+
+# 🚀 Full Installation Guide
+
+## 📋 System Requirements
+
+### Operating Systems:
+- Kali Linux (Recommended)
+- Ubuntu / Debian
+- Windows (WSL optional)
+- macOS
+
+---
+
+## 🐍 Python Requirements
+- Python 3.10+
+- pip
+- virtualenv
+
+---
+# ⚙️ Step 1: Clone Repository
+
+```bash
+git clone https://github.com/abdullahalhmoud/image-analyzer-final2.git
+cd image-analyzer-final2
+```
+
+# ⚙️ Step 2: Create Virtual Environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+# ⚙️ Step 3: Install Python Dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+# ⚙️ Step 4: Install External Forensic Tools
+
+## Steghide
+
+```bash
+sudo apt update
+sudo apt install steghide -y
+```
+
+## ExifTool
+
+```bash
+sudo apt install libimage-exiftool-perl -y
+```
+
+## Tesseract OCR
+
+```bash
+sudo apt install tesseract-ocr -y
+```
+
+## PDF Analysis Tool
+
+```bash
+sudo apt install poppler-utils -y
+```
+
+## Binwalk (Optional)
+
+```bash
+sudo apt install binwalk -y
+```
+
+## Zsteg (Optional for PNG)
+
+```bash
+sudo gem install zsteg
+```
+
+# ⚙️ Step 5: Verify Installations
+
+```bash
+steghide --version
+exiftool -ver
+tesseract --version
+pdfinfo -v
+binwalk --help
+```
+
+# ▶️ Running the Project
+
 ```bash
 python app.py
 ```
-The application will automatically launch in your browser at `http://127.0.0.1:5001`.
 
-## 🌐 Deployment (Live Website)
+# 🌐 Default Access
 
-### Using Render (Recommended)
-This project is configured for easy deployment on [Render](https://render.com).
+```text
+http://127.0.0.1:5000
+```
 
-1. **Push code to GitHub**.
-2. **Sign up on Render** and create a **New Web Service**.
-3. **Connect your GitHub repository**.
-4. **Settings**:
-   - Runtime: **Python 3**
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn app:app`
-5. Click **Create Web Service**. 🚀
+# 🌐 Production Deployment
 
-## 🛡️ Security Features
-- **File Validation**: Strict checking for allowed image types (JPG, PNG, TIFF, etc.).
-- **Size Limit**: Supports high-resolution images up to **50 MB**.
-- **Safe Execution**: Sandboxed execution of external forensic tools.
+## Gunicorn
 
-## 🛠️ Tech Stack
-- **Backend**: Python (Flask)
-- **Frontend**: HTML5, CSS3, JavaScript (No frameworks needed)
-- **AI Core**: PyTorch (EfficientNet)
-- **Image Processing**: PIL (Pillow)
+```bash
+gunicorn app:app
+```
 
----
-*Created by [Reham] - 2025*
+## Render Deployment
+
+### Build Command
+
+```bash
+pip install -r requirements.txt
+```
+
+### Start Command
+
+```bash
+gunicorn app:app
+```
+### 📁 Recommended Project Structure
+```bash
+image-analyzer/
+│
+├── app.py
+├── ai_model.py
+├── ai_generated_detector.py
+├── core_management.py
+├── requirements.txt
+├── report_template.html
+│
+├── templates/
+│   ├── result.html
+│   └── report_template.html
+│
+├── static/
+├── reports/
+├── tools/
+│   └── stegsleuth/
+│
+└── models/
+
