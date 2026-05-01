@@ -1101,4 +1101,4 @@ if __name__ == "__main__":
     from threading import Timer
     Timer(1.5, open_firefox).start()
     
-    app.run(host="0.0.0.0", port=5066, debug=True)
+    app.run(host="0.0.0.0", port=5069, debug=True)
