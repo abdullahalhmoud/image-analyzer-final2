@@ -180,20 +180,82 @@
             </p>
         </div>
 
-        <div class="box">
-            <h2>1) Metadata Analysis (EXIF)</h2>
-            <div class="kv"><b>Camera Spec:</b> {{ metadata.camera_make or "N/A" }} {{ metadata.camera_model or "" }}</div>
-            <div class="kv"><b>Date Transcribed:</b> {{ metadata.datetime_original or "Unknown" }}</div>
-            <div class="kv">
-                <b>GPS Coordinates:</b>
-                {% if metadata.gps.present %}
-                    {{ metadata.gps.latitude }}, {{ metadata.gps.longitude }}
-                {% else %}
-                    Not Available
+<div class="box">
+    <h2>1) Metadata Analysis (EXIF)</h2>
+
+    <div class="kv">
+        <b>📷 File Info:</b><br>
+        {% if full_stegsleuth_exif %}
+            {% for line in full_stegsleuth_exif.split('\n') %}
+                {% if 'File Name' in line
+                   or 'Directory' in line
+                   or 'File Size' in line
+                   or 'File Permissions' in line
+                   or 'File Type' in line
+                   or 'File Type Extension' in line
+                   or 'MIME Type' in line %}
+                    {{ line }}<br>
                 {% endif %}
-            </div>
-            <div class="kv"><b>Analysis Source:</b> {{ metadata.source }}</div>
-        </div>
+            {% endfor %}
+        {% else %}
+            No file information available.
+        {% endif %}
+    </div>
+
+    <div class="kv">
+        <b>🕒 Date & Time:</b><br>
+        Original Capture Date: {{ metadata.datetime_original or 'N/A' }}<br>
+
+        {% if full_stegsleuth_exif %}
+            {% for line in full_stegsleuth_exif.split('\n') %}
+                {% if 'File Modification Date/Time' in line
+                   or 'File Access Date/Time' in line
+                   or 'File Inode Change Date/Time' in line %}
+                    {{ line }}<br>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="kv">
+        <b>🖼️ Image Info:</b><br>
+        {% if full_stegsleuth_exif %}
+            {% for line in full_stegsleuth_exif.split('\n') %}
+                {% if 'Image Width' in line
+                   or 'Image Height' in line
+                   or 'Encoding Process' in line
+                   or 'Color Components' in line
+                   or 'Y Cb Cr Sub Sampling' in line
+                   or 'Image Size' in line
+                   or 'Megapixels' in line %}
+                    {{ line }}<br>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            No image information available.
+        {% endif %}
+    </div>
+
+    <div class="kv">
+        <b>📸 Camera / Software:</b><br>
+        Camera: {{ metadata.camera_make or "Unknown" }} {{ metadata.camera_model or "" }}
+    </div>
+
+    <div class="kv">
+        <b>📍 Location / GPS:</b><br>
+        {% if metadata.gps.present %}
+            GPS Latitude: {{ metadata.gps.latitude }}<br>
+            GPS Longitude: {{ metadata.gps.longitude }}
+        {% else %}
+            GPS: Not Available
+        {% endif %}
+    </div>
+
+    <div class="kv">
+        <b>🔬 Analysis Source:</b><br>
+        {{ metadata.source|upper }}
+    </div>
+</div>
 
         <div class="box">
             <h2>2) Steganography Analysis</h2>
@@ -221,8 +283,10 @@
             <div class="kv">
                 <b>StegSleuth Verdict:</b>
                 <span class="badge {{ plain_badge_class }}">
-                    {% if stegsleuth_result.detected %}
-                        DETECTED - Hidden Data Found
+                    {% if steghide_result and steghide_result.detected %}
+                        DETECTED BY TRADITIONAL FORENSIC TOOLS
+                    {% elif stegsleuth_result.detected %}
+                        SUSPICIOUS / HEURISTIC DETECTION
                     {% else %}
                         NOT DETECTED
                     {% endif %}
