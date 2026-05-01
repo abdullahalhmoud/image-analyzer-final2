@@ -4,3 +4,7 @@ pillow
 numpy
 torch
 torchvision
+transformers
+safetensors
+torch
+torchvision
