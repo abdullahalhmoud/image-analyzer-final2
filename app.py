@@ -1086,19 +1086,4 @@ def download_pdf(rid):
     return Response(html_content, mimetype='text/html')
 
 if __name__ == "__main__":
-    def open_firefox():
-        """Open the app in Firefox automatically"""
-        url = "http://127.0.0.1:5001"
-        try:
-            # Try specific Firefox command for macOS
-            subprocess.run(["open", "-a", "Firefox", url], check=False)
-        except Exception:
-            # Fallback to default browser if Firefox fails
-            import webbrowser
-            webbrowser.open(url)
-
-    # Open browser after 1.5 seconds (to allow server to start)
-    from threading import Timer
-    Timer(1.5, open_firefox).start()
-    
-    app.run(host="0.0.0.0", port=5069, debug=True)
+    app.run(host="0.0.0.0", port=6000, debug=False)
